@@ -12,3 +12,12 @@ spring:
     hibernate.ddl-auto: update
     generate-ddl: true
     show-sql: true
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+  instance:
+    hostname: localhost
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    prefer-ip-address: true
