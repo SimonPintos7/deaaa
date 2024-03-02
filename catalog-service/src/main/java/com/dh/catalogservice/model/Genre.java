@@ -1,17 +1,16 @@
 package com.dh.catalogservice.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class Movie{
-
-    private Long id;
-    private String name;
-    private String genre;
-    private String urlStream;
-
+@Builder
+public class Genre {
+    private List<Movie> movies;
 }

@@ -1,23 +1,31 @@
 package com.dh.catalogservice.controller;
 
-import com.dh.catalogservice.client.IMovieClient;
+import com.dh.catalogservice.exception.GenreNotFoundException;
+import com.dh.catalogservice.model.Genre;
 import com.dh.catalogservice.model.Movie;
+import com.dh.catalogservice.service.CatalogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/catalog")
 public class CatalogController {
 
-    @Autowired
-    private IMovieClient iMovieClient;
+    private CatalogService catalogService;
 
-    @GetMapping("catalog/{genre}")
-    public ResponseEntity<List<Movie>> getCatalogByGenre (@PathVariable String genre){
-        return iMovieClient.getMovieByGenre(genre);
+    public CatalogController(CatalogService catalogService) {
+        this.catalogService = catalogService;
+    }
+
+    @GetMapping("/{genre}")
+    public ResponseEntity<Genre> getCatalogByGenre (@PathVariable String genre) throws GenreNotFoundException {
+        return ResponseEntity.ok(catalogService.findByGenre(genre));
+    }
+
+    @PostMapping("/movies/save")
+    public ResponseEntity<Movie> saveMovie(@RequestBody Movie movie) {
+        catalogService.saveMovie(movie);
+        return ResponseEntity.noContent().build();
     }
 }
