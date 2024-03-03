@@ -15,9 +15,9 @@ import java.util.List;
 @FeignClient(name = "movie-service")
 public interface IMovieClient {
     @GetMapping("/api/v1/movies/{genre}")
-    public List<Movie> getMovieByGenre(@PathVariable String genre);
+    public ResponseEntity<List<Movie>> getMovieByGenre(@PathVariable String genre);
 
     @PostMapping("/api/v1/movies/save")
-    public Movie saveMovie(@RequestBody Movie movie);
+    public ResponseEntity<Movie> saveMovie(@RequestBody Movie movie);
 
 }

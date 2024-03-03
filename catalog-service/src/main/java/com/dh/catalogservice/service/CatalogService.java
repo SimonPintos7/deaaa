@@ -3,12 +3,13 @@ package com.dh.catalogservice.service;
 import com.dh.catalogservice.exception.GenreNotFoundException;
 import com.dh.catalogservice.model.Genre;
 import com.dh.catalogservice.model.Movie;
+import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.List;
 
 public interface CatalogService {
 
-    public Genre findByGenre(String genre);
+    Genre findByGenre(String genre);
 
-    public Movie saveMovie(Movie movie);
+    Movie saveMovie(Movie movie);
 }

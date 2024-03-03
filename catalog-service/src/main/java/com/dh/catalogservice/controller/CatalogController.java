@@ -4,6 +4,7 @@ import com.dh.catalogservice.exception.GenreNotFoundException;
 import com.dh.catalogservice.model.Genre;
 import com.dh.catalogservice.model.Movie;
 import com.dh.catalogservice.service.CatalogService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,6 @@ public class CatalogController {
 
     @PostMapping("/movies/save")
     public ResponseEntity<Movie> saveMovie(@RequestBody Movie movie) {
-        catalogService.saveMovie(movie);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(catalogService.saveMovie(movie));
     }
 }
