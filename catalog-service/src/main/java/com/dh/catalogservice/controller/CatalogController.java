@@ -19,7 +19,7 @@ public class CatalogController {
     }
 
     @GetMapping("/{genre}")
-    public ResponseEntity<Genre> getCatalogByGenre (@PathVariable String genre) throws GenreNotFoundException {
+    public ResponseEntity<Genre> getCatalogByGenre (@PathVariable String genre) {
         return ResponseEntity.ok(catalogService.findByGenre(genre));
     }
 

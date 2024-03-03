@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface CatalogService {
 
-    public Genre findByGenre(String genre) throws GenreNotFoundException;
+    public Genre findByGenre(String genre);
 
-    public void saveMovie(Movie movie);
+    public Movie saveMovie(Movie movie);
 }

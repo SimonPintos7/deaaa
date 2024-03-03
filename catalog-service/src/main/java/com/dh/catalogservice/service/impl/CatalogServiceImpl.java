@@ -15,7 +15,6 @@ import java.util.List;
 @Service
 public class CatalogServiceImpl implements CatalogService {
 
-    @Autowired
     private IMovieClient iMovieClient;
 
     public CatalogServiceImpl(IMovieClient iMovieClient) {
@@ -23,16 +22,12 @@ public class CatalogServiceImpl implements CatalogService {
     }
 
     @Override
-    public Genre findByGenre(String genre) throws GenreNotFoundException {
-        ResponseEntity<List<Movie>> response = iMovieClient.getMovieByGenre(genre);
-        if (response.getStatusCode().is2xxSuccessful()) {
-            return new Genre(response.getBody());
-        }
-        throw new GenreNotFoundException("No se encontró el género: " + genre);
+    public Genre findByGenre(String genre)  {
+        return new Genre(iMovieClient.getMovieByGenre(genre));
     }
 
     @Override
-    public void saveMovie(Movie movie) {
-        iMovieClient.saveMovie(movie);
+    public Movie saveMovie(Movie movie) {
+        return iMovieClient.saveMovie(movie);
     }
 }
