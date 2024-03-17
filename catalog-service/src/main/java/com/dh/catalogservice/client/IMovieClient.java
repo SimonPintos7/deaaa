@@ -12,9 +12,12 @@ import java.util.List;
 @FeignClient(name = "movie-service")
 public interface IMovieClient {
     @GetMapping("/api/v1/movies/{genre}")
-    public ResponseEntity<List<Movie>> getMovieByGenre(@PathVariable String genre, @RequestParam Boolean throwError);
+    public ResponseEntity<List<Movie>> getMovieByGenre(@PathVariable String genre);
 
     @PostMapping("/api/v1/movies/save")
     public ResponseEntity<Movie> saveMovie(@RequestBody Movie movie);
+
+    @GetMapping("/api/v1/movies/findAll")
+    List<Movie> findAll(@RequestParam Boolean throwError);
 
 }

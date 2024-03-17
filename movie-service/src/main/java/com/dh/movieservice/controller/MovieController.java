@@ -24,7 +24,7 @@ public class MovieController {
     }
 
     @GetMapping("/{genre}")
-    ResponseEntity<List<Movie>> getMovieByGenre(@PathVariable String genre, HttpServletResponse response, @RequestParam(defaultValue = "false") Boolean throwError) {
+    ResponseEntity<List<Movie>> getMovieByGenre(@PathVariable String genre, HttpServletResponse response) {
         response.addHeader("port", String.valueOf(serverPort));
         return ResponseEntity.ok().body(movieService.findByGenre(genre));
     }
@@ -32,5 +32,10 @@ public class MovieController {
     @PostMapping("/save")
     ResponseEntity<Movie> saveMovie(@RequestBody Movie movie) {
         return ResponseEntity.ok().body(movieService.save(movie));
+    }
+
+    @GetMapping("/findAll")
+    public List<Movie> findAll(@RequestParam(defaultValue = "false") Boolean throwError) {
+        return movieService.findAll(throwError);
     }
 }

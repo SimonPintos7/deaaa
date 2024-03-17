@@ -19,6 +19,8 @@ public class CatalogController {
         this.catalogService = catalogService;
     }
 
+
+
     @GetMapping("/{genre}")
     public ResponseEntity<Genre> getCatalogByGenre (@PathVariable String genre) {
         return ResponseEntity.ok(catalogService.findByGenre(genre));

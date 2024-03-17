@@ -15,14 +15,18 @@ public class MovieService {
         this.movieRepository = movieRepository;
     }
 
-    public List<Movie> findByGenre(String genre, Boolean throwError) {
-        if (throwError){
-            throw new RuntimeException();
-        }
+    public List<Movie> findByGenre(String genre) {
         return movieRepository.findByGenre(genre);
     }
 
     public Movie save(Movie movie) {
         return movieRepository.save(movie);
+    }
+
+    public List<Movie> findAll(Boolean throwError){
+        if (throwError){
+            throw new RuntimeException();
+        }
+        return movieRepository.findAll();
     }
 }

@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import jakarta.persistence.*;
 
 import java.util.List;
 
@@ -13,6 +12,5 @@ import java.util.List;
 @RequiredArgsConstructor
 @Builder
 public class Genre {
-    @Transient
     private List<Movie> movies;
 }
