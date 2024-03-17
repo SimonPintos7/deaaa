@@ -15,7 +15,10 @@ public class MovieService {
         this.movieRepository = movieRepository;
     }
 
-    public List<Movie> findByGenre(String genre) {
+    public List<Movie> findByGenre(String genre, Boolean throwError) {
+        if (throwError){
+            throw new RuntimeException();
+        }
         return movieRepository.findByGenre(genre);
     }
 

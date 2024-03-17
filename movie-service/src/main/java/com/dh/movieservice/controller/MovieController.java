@@ -4,6 +4,7 @@ import com.dh.movieservice.model.Movie;
 import com.dh.movieservice.service.MovieService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,7 @@ public class MovieController {
     }
 
     @GetMapping("/{genre}")
-    ResponseEntity<List<Movie>> getMovieByGenre(@PathVariable String genre, HttpServletResponse response) {
+    ResponseEntity<List<Movie>> getMovieByGenre(@PathVariable String genre, HttpServletResponse response, @RequestParam(defaultValue = "false") Boolean throwError) {
         response.addHeader("port", String.valueOf(serverPort));
         return ResponseEntity.ok().body(movieService.findByGenre(genre));
     }
