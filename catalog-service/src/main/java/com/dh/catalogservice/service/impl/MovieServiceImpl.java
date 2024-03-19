@@ -27,7 +27,6 @@ public class MovieServiceImpl implements MovieService {
     @Retry(name="movies")
     @Override
     public List<Movie> findAll(){
-        log.info("Calling movie service...");
         return movieClient.findAll(false);
     }
 
