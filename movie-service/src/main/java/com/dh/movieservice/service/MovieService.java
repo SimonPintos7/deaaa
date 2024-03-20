@@ -22,4 +22,11 @@ public class MovieService {
     public Movie save(Movie movie) {
         return movieRepository.save(movie);
     }
+
+    public List<Movie> findAll(Boolean throwError){
+        if (throwError){
+            throw new RuntimeException();
+        }
+        return movieRepository.findAll();
+    }
 }

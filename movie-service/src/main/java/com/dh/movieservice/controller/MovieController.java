@@ -4,6 +4,7 @@ import com.dh.movieservice.model.Movie;
 import com.dh.movieservice.service.MovieService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,5 +32,10 @@ public class MovieController {
     @PostMapping("/save")
     ResponseEntity<Movie> saveMovie(@RequestBody Movie movie) {
         return ResponseEntity.ok().body(movieService.save(movie));
+    }
+
+    @GetMapping("/findAll")
+    public List<Movie> findAll(@RequestParam(defaultValue = "false") Boolean throwError) {
+        return movieService.findAll(throwError);
     }
 }
