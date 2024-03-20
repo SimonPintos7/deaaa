@@ -34,9 +34,9 @@ public class CatalogController {
     }
 
     // Obtener series por su género
-    @GetMapping("series/{genre}")
+    @GetMapping("/series/{genre}")
     public ResponseEntity<GenreSeries> getSerieByGenre (@PathVariable String genre) {
-        return ResponseEntity.ok(catalogService.findSerieByGenre(genre));
+        return ResponseEntity.ok(catalogService.getSerieByGenre(genre));
     }
 
     // Crear series

@@ -15,6 +15,6 @@ public interface CatalogService {
 
     Movie saveMovie(Movie movie);
 
-    GenreSeries findSerieByGenre(String genre);
+    GenreSeries getSerieByGenre(String genre);
     Serie saveSerie(Serie serie);
 }

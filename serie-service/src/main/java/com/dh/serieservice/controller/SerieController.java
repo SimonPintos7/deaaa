@@ -4,6 +4,8 @@ import com.dh.serieservice.model.Serie;
 import com.dh.serieservice.service.SerieService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.List;
 
@@ -23,8 +25,8 @@ public class SerieController {
     }
 
     @GetMapping("/{genre}")
-    public List<Serie> getSerieByGenre(@PathVariable String genre) {
-        return serieService.getSeriesBygGenre(genre);
+    public ResponseEntity<List<Serie>> getSerieByGenre(@PathVariable String genre) {
+        return ResponseEntity.ok().body(serieService.getSerieByGenre(genre));
     }
 
     @PostMapping("/save")

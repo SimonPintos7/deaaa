@@ -48,7 +48,7 @@ public class CatalogServiceImpl implements CatalogService {
     }
 
     @Override
-    public GenreSeries findSerieByGenre(String genre) {
+    public GenreSeries getSerieByGenre(String genre) {
         GenreSeries listSerieByGenre = new GenreSeries();
         ResponseEntity<List<Serie>> listSeries = iSerieClient.getSerieByGenre(genre);
         listSerieByGenre.setSeries(listSeries.getBody());

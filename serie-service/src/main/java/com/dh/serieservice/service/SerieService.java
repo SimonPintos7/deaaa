@@ -20,8 +20,8 @@ public class SerieService {
         return repository.findAll();
     }
 
-    public List<Serie> getSeriesBygGenre(String genre) {
-        return repository.findAllByGenre(genre);
+    public List<Serie> getSerieByGenre(String genre) {
+        return repository.getSerieByGenre(genre);
     }
 
     public String create(Serie serie) {
