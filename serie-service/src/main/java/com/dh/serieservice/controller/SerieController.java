@@ -7,10 +7,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * @author vaninagodoy
- */
-
 @RestController
 @RequestMapping("/api/v1/series")
 public class SerieController {
@@ -31,7 +27,7 @@ public class SerieController {
         return serieService.getSeriesBygGenre(genre);
     }
 
-    @PostMapping
+    @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
     public String create(@RequestBody Serie serie) {
         serieService.create(serie);

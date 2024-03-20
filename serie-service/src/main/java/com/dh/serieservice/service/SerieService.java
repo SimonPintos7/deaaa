@@ -6,10 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * @author vaninagodoy
- */
-
 @Service
 public class SerieService {
 

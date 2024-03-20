@@ -28,27 +28,32 @@ public class SerieServiceApplication {
 
 			//Serie A terror
 			List<Serie.Season.Chapter> serieASeasonAChapters = List.of(
+					// Capitulos para la temporada 1
 					new Serie.Season.Chapter("Chapter A", 1, baseUrl + "/terror/1/season/1/chapter/1"),
 					new Serie.Season.Chapter("Chapter B", 2, baseUrl + "/terror/1/season/1/chapter/2")
 			);
 
 			List<Serie.Season.Chapter> serieASeasonBChapters = List.of(
+					// Capitulos para la temporada 2
 					new Serie.Season.Chapter("Chapter A", 1, baseUrl + "/terror/1/season/2/chapter/1"),
 					new Serie.Season.Chapter("Chapter B", 2, baseUrl + "/terror/1/season/2/chapter/2")
 			);
 
 			List<Serie.Season> serieASeasons = List.of(
+					// Se insertan las 2 temporadas
 					new Serie.Season(1, serieASeasonAChapters),
 					new Serie.Season(2, serieASeasonBChapters)
 			);
 
 			//Serie B comedia
 			List<Serie.Season.Chapter> serieBSeasonAChapters = List.of(
+					// Capitulos para la temporada 1
 					new Serie.Season.Chapter("Chapter A", 1, baseUrl + "/comedia/1/season/1/chapter/1"),
 					new Serie.Season.Chapter("Chapter B", 2, baseUrl + "/comedia/1/season/1/chapter/2")
 			);
 
 			List<Serie.Season.Chapter> serieBSeasonBChapters = List.of(
+					// Capitulos para la temporada 2
 					new Serie.Season.Chapter("Chapter A", 1, baseUrl + "/comedia/1/season/2/chapter/1"),
 					new Serie.Season.Chapter("Chapter B", 2, baseUrl + "/comedia/1/season/2/chapter/2")
 			);
