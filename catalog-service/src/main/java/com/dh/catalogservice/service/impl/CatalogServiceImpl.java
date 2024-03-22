@@ -2,13 +2,14 @@ package com.dh.catalogservice.service.impl;
 
 import com.dh.catalogservice.client.IMovieClient;
 import com.dh.catalogservice.client.ISerieClient;
-import com.dh.catalogservice.exception.GenreNotFoundException;
 import com.dh.catalogservice.model.Genre;
-import com.dh.catalogservice.model.GenreSeries;
 import com.dh.catalogservice.model.Movie;
 import com.dh.catalogservice.model.Serie;
+import com.dh.catalogservice.repository.SerieRepository;
 import com.dh.catalogservice.service.CatalogService;
-import jakarta.servlet.http.HttpServletRequest;
+import com.dh.catalogservice.service.MovieService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -22,20 +23,38 @@ public class CatalogServiceImpl implements CatalogService {
 
     private IMovieClient iMovieClient;
     private ISerieClient iSerieClient;
+    private MovieService movieService;
+    private SerieRepository serieRepository;
 
-    public CatalogServiceImpl(IMovieClient iMovieClient) {
+    public CatalogServiceImpl(IMovieClient iMovieClient, ISerieClient iSerieClient, MovieService movieService, SerieRepository serieRepository) {
         this.iMovieClient = iMovieClient;
+        this.iSerieClient = iSerieClient;
+        this.movieService = movieService;
+        this.serieRepository = serieRepository;
     }
 
+    // TODO: cambiar el nombre "movies" a "catalog" en las configuraciones
+    //  del circuit breaker en catalog-service
+    @CircuitBreaker(name="movies", fallbackMethod = "getCatalogFallbackMethod")
+    @Retry(name="movies")
     @Override
-    public Genre findByGenre(String genre)  {
-//        return new Genre(iMovieClient.getMovieByGenre(genre));
-        Genre resultsByGenre = new Genre();
-        ResponseEntity<List<Movie>> list = iMovieClient.getMovieByGenre(genre);
-        resultsByGenre.setMovies(list.getBody());
+    public Genre findByGenre(String genre) throws RuntimeException{
 
-        // obtenemos el puerto
-        log.info("Response received from port: {}", list.getHeaders().get("port"));
+//        log.info("Response received from port: {}", list.getHeaders().get("port"));
+
+        return new Genre(movieService.getMoviesByGenre(genre, false), serieRepository.getSeriesByGenre(genre));
+    }
+
+    // método fallback
+    public Genre getCatalogFallbackMethod(String genre, Exception ex) {
+        Genre resultsByGenre = new Genre();
+
+        ResponseEntity<List<Movie>> movieList = iMovieClient.getMovieByGenre(genre);
+        ResponseEntity<List<Serie>> serieList = iSerieClient.getSerieByGenre(genre);
+
+        resultsByGenre.setMovies(movieList.getBody());
+        resultsByGenre.setSeries(serieList.getBody());
+
         return resultsByGenre;
     }
 
@@ -47,19 +66,11 @@ public class CatalogServiceImpl implements CatalogService {
         return savedMovie;
     }
 
+    // saveSerie
     @Override
-    public GenreSeries getSerieByGenre(String genre) {
-        GenreSeries listSerieByGenre = new GenreSeries();
-        ResponseEntity<List<Serie>> listSeries = iSerieClient.getSerieByGenre(genre);
-        listSerieByGenre.setSeries(listSeries.getBody());
-        log.info("Response received from port: {}", listSeries.getHeaders().get("port"));
-        return listSerieByGenre;
-    }
-
-    @Override
-    public Serie saveSerie(Serie serie) {
+    public Serie create(Serie serie) {
         Serie newSerie;
-        ResponseEntity<Serie> serieSaved = iSerieClient.saveSerie(serie);
+        ResponseEntity<Serie> serieSaved = iSerieClient.create(serie);
         newSerie = serieSaved.getBody();
         return newSerie;
     }

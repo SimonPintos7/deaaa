@@ -30,9 +30,9 @@ public class SerieController {
     }
 
     @PostMapping("/save")
-    @ResponseStatus(HttpStatus.CREATED)
-    public String create(@RequestBody Serie serie) {
-        serieService.create(serie);
-        return serie.getId();
+//    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<Serie> create(@RequestBody Serie serie) {
+        return ResponseEntity.ok().body(serieService.create(serie));
+//        return serie.getId();
     }
 }

@@ -16,5 +16,5 @@ public interface ISerieClient {
     public ResponseEntity<List<Serie>> getSerieByGenre(@PathVariable String genre);
 
     @PostMapping("/api/v1/series/save")
-    public ResponseEntity<Serie> saveSerie(@RequestBody Serie serie);
+    public ResponseEntity<Serie> create(@RequestBody Serie serie);
 }

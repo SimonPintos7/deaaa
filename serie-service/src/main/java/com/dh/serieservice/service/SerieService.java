@@ -24,8 +24,7 @@ public class SerieService {
         return repository.getSerieByGenre(genre);
     }
 
-    public String create(Serie serie) {
-        repository.save(serie);
-        return serie.getId();
+    public Serie create(Serie serie) {
+        return repository.save(serie);
     }
 }
