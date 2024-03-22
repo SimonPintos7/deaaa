@@ -35,8 +35,8 @@ public class CatalogServiceImpl implements CatalogService {
 
     // TODO: cambiar el nombre "movies" a "catalog" en las configuraciones
     //  del circuit breaker en catalog-service
-    @CircuitBreaker(name="movies", fallbackMethod = "getCatalogFallbackMethod")
-    @Retry(name="movies")
+    @CircuitBreaker(name="catalog", fallbackMethod = "getCatalogFallbackMethod")
+    @Retry(name="catalog")
     @Override
     public Genre findByGenre(String genre) throws RuntimeException{
 
