@@ -19,10 +19,6 @@ public class SerieController {
         this.serieService = serieService;
     }
 
-    @GetMapping
-    public List<Serie> getAll() {
-        return serieService.getAll();
-    }
 
     @GetMapping("/{genre}")
     public ResponseEntity<List<Serie>> getSerieByGenre(@PathVariable String genre) {
@@ -30,9 +26,8 @@ public class SerieController {
     }
 
     @PostMapping("/save")
-    @ResponseStatus(HttpStatus.CREATED)
-    public String create(@RequestBody Serie serie) {
-        serieService.create(serie);
-        return serie.getId();
+    public ResponseEntity<Serie> create(@RequestBody Serie serie) {
+        return ResponseEntity.ok().body(serieService.create(serie));
+//        return serie.getId();
     }
 }

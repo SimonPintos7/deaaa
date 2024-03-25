@@ -2,6 +2,7 @@ package com.dh.catalogservice.service.impl;
 
 import com.dh.catalogservice.client.IMovieClient;
 import com.dh.catalogservice.model.Movie;
+import com.dh.catalogservice.repository.MovieRepository;
 import com.dh.catalogservice.service.MovieService;
 import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
@@ -16,21 +17,21 @@ import java.util.List;
 @Slf4j
 @Service
 public class MovieServiceImpl implements MovieService {
-    private IMovieClient movieClient;
+    private MovieRepository movieRepository;
 
     @Autowired
-    public MovieServiceImpl(IMovieClient movieClient){
-        this.movieClient = movieClient;
+    public MovieServiceImpl(MovieRepository movieRepository){
+        this.movieRepository = movieRepository;
     }
 
-    @CircuitBreaker(name="movies", fallbackMethod = "emptyListFallbackMethod")
-    @Retry(name="movies")
+    // obtiene las películas por genero y, si no hay error,
+    // las almacena en el repo de películas de catalog-service
     @Override
-    public List<Movie> findAll(){
-        return movieClient.findAll(false);
+    public List<Movie> getMoviesByGenre(String genre, Boolean throwError) {
+        if (throwError) {
+            throw new RuntimeException();
+        }
+        return movieRepository.getMoviesByGenre(genre);
     }
 
-    public List<Movie> emptyListFallbackMethod(CallNotPermittedException e) {
-        return new ArrayList<>();
-    }
 }

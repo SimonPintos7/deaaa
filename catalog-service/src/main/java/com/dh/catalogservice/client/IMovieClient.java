@@ -17,7 +17,4 @@ public interface IMovieClient {
     @PostMapping("/api/v1/movies/save")
     public ResponseEntity<Movie> saveMovie(@RequestBody Movie movie);
 
-    @GetMapping("/api/v1/movies/findAll")
-    List<Movie> findAll(@RequestParam Boolean throwError);
-
 }

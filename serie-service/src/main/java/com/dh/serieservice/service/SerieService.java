@@ -16,16 +16,11 @@ public class SerieService {
         this.repository = repository;
     }
 
-    public List<Serie> getAll() {
-        return repository.findAll();
-    }
-
     public List<Serie> getSerieByGenre(String genre) {
         return repository.getSerieByGenre(genre);
     }
 
-    public String create(Serie serie) {
-        repository.save(serie);
-        return serie.getId();
+    public Serie create(Serie serie) {
+        return repository.save(serie);
     }
 }

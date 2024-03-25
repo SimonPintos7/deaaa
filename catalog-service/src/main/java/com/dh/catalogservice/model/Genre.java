@@ -13,4 +13,5 @@ import java.util.List;
 @Builder
 public class Genre {
     private List<Movie> movies;
+    private List<Serie> series;
 }

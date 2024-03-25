@@ -14,10 +14,9 @@ import java.util.List;
 @RequestMapping("/api/v1/movies")
 public class MovieController {
 
-    @Value("${server.port}")
-    private int serverPort;
+//    @Value("${server.port}")
+//    private int serverPort;
     private final MovieService movieService;
-
 
     public MovieController(MovieService movieService) {
         this.movieService = movieService;
@@ -25,7 +24,7 @@ public class MovieController {
 
     @GetMapping("/{genre}")
     ResponseEntity<List<Movie>> getMovieByGenre(@PathVariable String genre, HttpServletResponse response) {
-        response.addHeader("port", String.valueOf(serverPort));
+        // response.addHeader("port", String.valueOf(serverPort));
         return ResponseEntity.ok().body(movieService.findByGenre(genre));
     }
 
@@ -34,8 +33,4 @@ public class MovieController {
         return ResponseEntity.ok().body(movieService.save(movie));
     }
 
-    @GetMapping("/findAll")
-    public List<Movie> findAll(@RequestParam(defaultValue = "false") Boolean throwError) {
-        return movieService.findAll(throwError);
-    }
 }
