@@ -45,7 +45,7 @@ public class CatalogServiceImpl implements CatalogService {
         return new Genre(movieService.getMoviesByGenre(genre, false), serieRepository.getSeriesByGenre(genre));
     }
 
-    // método fallback
+    // método fallback: obtengo las pelís a través del client
     public Genre getCatalogFallbackMethod(String genre, Exception ex) {
         Genre resultsByGenre = new Genre();
 
